@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Mon espace — Studio Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-10">
+
+  <h1 class="text-2xl font-semibold text-gray-800 mb-8">Mon espace</h1>
+
+  <div class="grid md:grid-cols-3 gap-6 mb-10">
+
+    <!-- Profil -->
+    <div class="bg-white border border-gray-100 rounded-2xl p-6">
+      <div class="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center mb-4">
+        <span class="text-sage-700 font-bold text-lg">{{ user.prenom[0] }}{{ user.nom[0] }}</span>
+      </div>
+      <div class="font-semibold text-gray-800">{{ user.full_name }}</div>
+      <div class="text-gray-400 text-sm">{{ user.email }}</div>
+      <div class="text-gray-400 text-xs mt-1">Membre depuis {{ user.created_at.strftime('%B %Y') }}</div>
+    </div>
+
+    <!-- Abonnement -->
+    <div class="md:col-span-2 bg-white border border-gray-100 rounded-2xl p-6">
+      <h2 class="font-semibold text-gray-800 mb-4">Mon abonnement</h2>
+      {% if user.has_active_subscription %}
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+          <span class="text-green-700 font-medium text-sm">Actif</span>
+          <span class="text-gray-400 text-sm">—</span>
+          <span class="text-gray-600 text-sm capitalize">{{ user.subscription.plan }}</span>
+        </div>
+        {% if user.subscription.current_period_end %}
+        <p class="text-gray-500 text-sm mb-4">
+          Renouvellement le {{ user.subscription.current_period_end.strftime('%d %B %Y') }}
+        </p>
+        {% endif %}
+        <form method="post" action="/abonnement/annuler"
+              onsubmit="return confirm('Confirmer la résiliation ? Votre abonnement restera actif jusqu\'à la fin de la période.')">
+          <button type="submit"
+                  class="text-sm text-red-500 hover:text-red-700 transition-colors">
+            Résilier l'abonnement
+          </button>
+        </form>
+      {% elif user.subscription and user.subscription.statut == 'annule' %}
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+          <span class="text-amber-700 font-medium text-sm">Résilié</span>
+        </div>
+        <p class="text-gray-500 text-sm mb-4">
+          {% if user.subscription.current_period_end %}
+            Accès jusqu'au {{ user.subscription.current_period_end.strftime('%d %B %Y') }}
+          {% endif %}
+        </p>
+        <a href="/tarifs" class="text-sm text-sage-600 font-medium hover:underline">Se réabonner →</a>
+      {% else %}
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+          <span class="text-gray-500 font-medium text-sm">Aucun abonnement</span>
+        </div>
+        <p class="text-gray-400 text-sm mb-4">Abonnez-vous pour réserver des cours.</p>
+        <a href="/tarifs"
+           class="px-4 py-2 bg-sage-600 text-white text-sm font-medium rounded-lg hover:bg-sage-700 transition-colors inline-block">
+          Voir les abonnements →
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Prochaines réservations -->
+  <div class="bg-white border border-gray-100 rounded-2xl p-6 mb-6">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="font-semibold text-gray-800">Mes prochaines séances</h2>
+      <a href="/planning" class="text-sage-600 text-sm hover:underline">+ Réserver</a>
+    </div>
+    {% if a_venir %}
+      <div class="space-y-3">
+        {% for booking in a_venir %}
+        <div class="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
+          <div>
+            <div class="font-medium text-gray-800 text-sm">{{ booking.session.course.titre }}</div>
+            <div class="text-gray-400 text-xs mt-0.5">
+              {{ booking.session.date_heure.strftime('%A %d %B · %H:%M') }}
+              · {{ booking.session.course.duree_minutes }} min
+            </div>
+          </div>
+          <form method="post" action="/planning/annuler/{{ booking.id }}"
+                onsubmit="return confirm('Annuler cette réservation ?')">
+            <button type="submit" class="text-xs text-red-400 hover:text-red-600 transition-colors">
+              Annuler
+            </button>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-gray-400 text-sm">Aucune séance à venir.
+        <a href="/planning" class="text-sage-600 hover:underline">Réserver un cours →</a>
+      </p>
+    {% endif %}
+  </div>
+
+  <!-- Historique -->
+  {% if historique %}
+  <div class="bg-white border border-gray-100 rounded-2xl p-6">
+    <h2 class="font-semibold text-gray-800 mb-5">Historique</h2>
+    <div class="space-y-2">
+      {% for booking in historique %}
+      <div class="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+        <div class="font-medium text-gray-600 text-sm">{{ booking.session.course.titre }}</div>
+        <div class="text-gray-400 text-xs">{{ booking.session.date_heure.strftime('%d/%m/%Y · %H:%M') }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

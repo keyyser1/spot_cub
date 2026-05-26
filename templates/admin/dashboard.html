@@ -1,0 +1,61 @@
+{% extends "admin/base.html" %}
+{% block title %}Tableau de bord{% endblock %}
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block content %}
+
+<!-- KPIs -->
+<div class="grid grid-cols-3 gap-5 mb-8">
+  <div class="bg-white border border-gray-200 rounded-xl p-5">
+    <div class="text-gray-400 text-xs font-medium uppercase tracking-wide mb-2">Clients total</div>
+    <div class="text-3xl font-light text-gray-800">{{ total_clients }}</div>
+  </div>
+  <div class="bg-white border border-gray-200 rounded-xl p-5">
+    <div class="text-gray-400 text-xs font-medium uppercase tracking-wide mb-2">Abonnés actifs</div>
+    <div class="text-3xl font-light text-sage-700">{{ abonnes_actifs }}</div>
+  </div>
+  <div class="bg-white border border-gray-200 rounded-xl p-5">
+    <div class="text-gray-400 text-xs font-medium uppercase tracking-wide mb-2">Cours actifs</div>
+    <div class="text-3xl font-light text-gray-800">{{ total_cours }}</div>
+  </div>
+</div>
+
+<!-- Prochaines séances -->
+<div class="bg-white border border-gray-200 rounded-xl p-6">
+  <div class="flex items-center justify-between mb-5">
+    <h2 class="font-semibold text-gray-800">Prochaines séances (7 jours)</h2>
+    <a href="/admin/sessions" class="text-sage-600 text-sm hover:underline">Voir tout →</a>
+  </div>
+  {% if prochaines %}
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-gray-400 text-xs uppercase tracking-wide border-b border-gray-100">
+          <th class="text-left pb-3 font-medium">Cours</th>
+          <th class="text-left pb-3 font-medium">Date & heure</th>
+          <th class="text-left pb-3 font-medium">Places</th>
+          <th class="text-left pb-3 font-medium">Inscrits</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50">
+        {% for session in prochaines %}
+        <tr>
+          <td class="py-3 font-medium text-gray-800">{{ session.course.titre }}</td>
+          <td class="py-3 text-gray-500">{{ session.date_heure.strftime('%a %d %b · %H:%M') }}</td>
+          <td class="py-3">
+            <span class="{% if session.places_restantes == 0 %}text-red-500{% elif session.places_restantes <= 3 %}text-amber-500{% else %}text-gray-500{% endif %}">
+              {{ session.places_restantes }} / {{ session.course.capacite_max }}
+            </span>
+          </td>
+          <td class="py-3 text-gray-500">{{ session.nb_inscrits }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="text-gray-400 text-sm">Aucune séance dans les 7 prochains jours.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

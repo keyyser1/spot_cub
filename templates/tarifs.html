@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Tarifs & Abonnements — Studio Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-16">
+
+  <div class="text-center mb-12">
+    <h1 class="text-3xl font-light text-gray-800 mb-3">Nos abonnements</h1>
+    <p class="text-gray-500">Cours illimités, réservation simple, résiliation à tout moment.</p>
+  </div>
+
+  {% if message == 'abonnement_requis' %}
+  <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 text-sm text-amber-800 text-center">
+    Vous devez avoir un abonnement actif pour réserver un cours.
+  </div>
+  {% elif message == 'annule' %}
+  <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-8 text-sm text-gray-600 text-center">
+    Paiement annulé. Vous pouvez choisir un abonnement quand vous le souhaitez.
+  </div>
+  {% endif %}
+
+  <!-- Grille des plans -->
+  <div class="grid md:grid-cols-3 gap-6 mb-12">
+
+    <!-- Mensuel -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col">
+      <div class="text-sage-600 font-semibold text-sm uppercase tracking-wide mb-4">Mensuel</div>
+      <div class="text-4xl font-light text-gray-800 mb-1">59 <span class="text-xl text-gray-400">€</span></div>
+      <div class="text-gray-400 text-sm mb-6">par mois</div>
+      <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Cours illimités</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Réservation en ligne</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Résiliation à tout moment</li>
+        <li class="flex items-center gap-2 text-gray-400"><svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>Pas de réduction</li>
+      </ul>
+      {% if user and user.has_active_subscription %}
+        <div class="w-full py-3 bg-gray-100 text-gray-400 rounded-xl text-sm text-center">Abonnement actif</div>
+      {% elif user %}
+        <a href="/abonnement/checkout/mensuel"
+           class="w-full py-3 border border-sage-600 text-sage-600 rounded-xl text-sm font-medium text-center hover:bg-sage-50 transition-colors block">
+          Choisir le mensuel
+        </a>
+      {% else %}
+        <a href="/auth/register"
+           class="w-full py-3 border border-sage-600 text-sage-600 rounded-xl text-sm font-medium text-center hover:bg-sage-50 transition-colors block">
+          Créer un compte
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Trimestriel (mis en avant) -->
+    <div class="bg-sage-700 text-white rounded-2xl p-8 flex flex-col relative shadow-xl scale-105">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+        <span class="bg-cream-400 text-amber-900 text-xs font-bold px-3 py-1 rounded-full">Le plus populaire</span>
+      </div>
+      <div class="text-sage-200 font-semibold text-sm uppercase tracking-wide mb-4">Trimestriel</div>
+      <div class="text-4xl font-light mb-1">149 <span class="text-xl text-sage-300">€</span></div>
+      <div class="text-sage-300 text-sm mb-1">tous les 3 mois</div>
+      <div class="text-sage-200 text-xs mb-6">soit 49,67 €/mois · économisez 28 €</div>
+      <ul class="space-y-3 text-sm text-sage-100 mb-8 flex-1">
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Cours illimités</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Réservation en ligne</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Résiliation à tout moment</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Économisez 28 €/trimestre</li>
+      </ul>
+      {% if user and user.has_active_subscription %}
+        <div class="w-full py-3 bg-white/20 text-white/60 rounded-xl text-sm text-center">Abonnement actif</div>
+      {% elif user %}
+        <a href="/abonnement/checkout/trimestriel"
+           class="w-full py-3 bg-white text-sage-700 rounded-xl text-sm font-semibold text-center hover:bg-cream-100 transition-colors block">
+          Choisir le trimestriel
+        </a>
+      {% else %}
+        <a href="/auth/register"
+           class="w-full py-3 bg-white text-sage-700 rounded-xl text-sm font-semibold text-center hover:bg-cream-100 transition-colors block">
+          Créer un compte
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Annuel -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col">
+      <div class="text-sage-600 font-semibold text-sm uppercase tracking-wide mb-4">Annuel</div>
+      <div class="text-4xl font-light text-gray-800 mb-1">499 <span class="text-xl text-gray-400">€</span></div>
+      <div class="text-gray-400 text-sm mb-1">par an</div>
+      <div class="text-sage-600 text-xs mb-6">soit 41,58 €/mois · économisez 209 €</div>
+      <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Cours illimités</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Réservation en ligne</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Résiliation à tout moment</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-sage-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>La meilleure offre — 209 € économisés</li>
+      </ul>
+      {% if user and user.has_active_subscription %}
+        <div class="w-full py-3 bg-gray-100 text-gray-400 rounded-xl text-sm text-center">Abonnement actif</div>
+      {% elif user %}
+        <a href="/abonnement/checkout/annuel"
+           class="w-full py-3 bg-sage-600 text-white rounded-xl text-sm font-semibold text-center hover:bg-sage-700 transition-colors block">
+          Choisir l'annuel
+        </a>
+      {% else %}
+        <a href="/auth/register"
+           class="w-full py-3 bg-sage-600 text-white rounded-xl text-sm font-semibold text-center hover:bg-sage-700 transition-colors block">
+          Créer un compte
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- FAQ -->
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-xl font-medium text-center text-gray-700 mb-6">Questions fréquentes</h2>
+    <div class="space-y-4">
+      <div class="bg-white border border-gray-100 rounded-xl p-5">
+        <h3 class="font-medium text-gray-800 text-sm mb-1">Puis-je résilier à tout moment ?</h3>
+        <p class="text-gray-500 text-sm">Oui, sans préavis. Votre abonnement reste actif jusqu'à la fin de la période payée.</p>
+      </div>
+      <div class="bg-white border border-gray-100 rounded-xl p-5">
+        <h3 class="font-medium text-gray-800 text-sm mb-1">Combien de cours puis-je réserver par semaine ?</h3>
+        <p class="text-gray-500 text-sm">Autant que vous le souhaitez, tant qu'il reste des places disponibles dans les séances.</p>
+      </div>
+      <div class="bg-white border border-gray-100 rounded-xl p-5">
+        <h3 class="font-medium text-gray-800 text-sm mb-1">Puis-je annuler une réservation ?</h3>
+        <p class="text-gray-500 text-sm">Oui, depuis votre espace personnel. L'annulation est libre jusqu'au début de la séance.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

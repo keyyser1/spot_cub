@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Studio Pilates{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sage:  { 50:'#f4f7f4', 100:'#e4ede4', 200:'#c9dbc9', 300:'#a3c0a3', 400:'#7a9f7a', 500:'#5c845c', 600:'#486848', 700:'#3a543a', 800:'#2f432f', 900:'#273827' },
+            cream: { 50:'#fefdf8', 100:'#fdf9ed', 200:'#f9f0d0', 300:'#f3e3a8', 400:'#eccf76', 500:'#e3ba4b' },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  {% block head %}{% endblock %}
+</head>
+<body class="bg-cream-50 text-gray-800 font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 font-semibold text-sage-700 text-lg tracking-tight">
+          <svg class="w-7 h-7 text-sage-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="1.5"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4"/>
+          </svg>
+          Studio Pilates
+        </a>
+
+        <!-- Nav links -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+          <a href="/planning" class="hover:text-sage-600 transition-colors">Planning</a>
+          <a href="/tarifs"   class="hover:text-sage-600 transition-colors">Tarifs</a>
+          {% if user %}
+            {% if user.role == 'admin' %}
+              <a href="/admin/dashboard" class="hover:text-sage-600 transition-colors">Admin</a>
+            {% endif %}
+            <a href="/dashboard" class="hover:text-sage-600 transition-colors">Mon espace</a>
+            <a href="/auth/logout" class="text-gray-400 hover:text-gray-600 transition-colors text-xs">Déconnexion</a>
+          {% else %}
+            <a href="/auth/login"
+               class="px-4 py-2 rounded-lg bg-sage-600 text-white hover:bg-sage-700 transition-colors">
+              Connexion
+            </a>
+          {% endif %}
+        </div>
+
+        <!-- Mobile menu button -->
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                class="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-700">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile nav -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 px-4 py-3 space-y-2 text-sm">
+      <a href="/planning" class="block py-2 text-gray-600">Planning</a>
+      <a href="/tarifs"   class="block py-2 text-gray-600">Tarifs</a>
+      {% if user %}
+        {% if user.role == 'admin' %}<a href="/admin/dashboard" class="block py-2 text-gray-600">Admin</a>{% endif %}
+        <a href="/dashboard"    class="block py-2 text-gray-600">Mon espace</a>
+        <a href="/auth/logout"  class="block py-2 text-gray-400">Déconnexion</a>
+      {% else %}
+        <a href="/auth/login"   class="block py-2 text-sage-600 font-medium">Connexion</a>
+        <a href="/auth/register" class="block py-2 text-sage-600 font-medium">S'inscrire</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- Flash messages -->
+  {% if msg %}
+  <div class="max-w-6xl mx-auto px-4 pt-4">
+    <div class="{% if 'ok' in msg or 'actif' in msg %}bg-green-50 border border-green-200 text-green-800{% else %}bg-amber-50 border border-amber-200 text-amber-800{% endif %} rounded-lg px-4 py-3 text-sm">
+      {% if msg == 'reservation_ok' %}✓ Réservation confirmée !
+      {% elif msg == 'annulation_ok' %}✓ Réservation annulée.
+      {% elif msg == 'abonnement_actif' %}🎉 Votre abonnement est maintenant actif. Bienvenue !
+      {% elif msg == 'abonnement_annule' %}Votre abonnement sera actif jusqu'à la fin de la période en cours.
+      {% elif msg == 'deja_inscrit' %}Vous êtes déjà inscrit à cette séance.
+      {% else %}{{ msg }}{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Main content -->
+  <main>{% block content %}{% endblock %}</main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-100 mt-16 py-10 text-center text-sm text-gray-400">
+    <p class="font-medium text-gray-600 mb-1">Studio Pilates</p>
+    <p>123 rue de la Paix · Paris · contact@studio-pilates.fr</p>
+    <p class="mt-3 text-xs">© 2025 Studio Pilates. Tous droits réservés.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends "admin/base.html" %}
+{% block title %}Clients{% endblock %}
+{% block page_title %}Gestion des clients{% endblock %}
+
+{% block content %}
+
+<div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+  <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+    <h2 class="font-semibold text-gray-800">Tous les clients ({{ clients|length }})</h2>
+  </div>
+  {% if clients %}
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="bg-gray-50 text-gray-400 text-xs uppercase tracking-wide">
+        <th class="text-left px-6 py-3 font-medium">Client</th>
+        <th class="text-left px-6 py-3 font-medium">Email</th>
+        <th class="text-left px-6 py-3 font-medium">Abonnement</th>
+        <th class="text-left px-6 py-3 font-medium">Expire le</th>
+        <th class="text-left px-6 py-3 font-medium">Inscrit le</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-50">
+      {% for client in clients %}
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4">
+          <div class="font-medium text-gray-800">{{ client.full_name }}</div>
+        </td>
+        <td class="px-6 py-4 text-gray-500">{{ client.email }}</td>
+        <td class="px-6 py-4">
+          {% if client.has_active_subscription %}
+            <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full capitalize">
+              ✓ {{ client.subscription.plan }}
+            </span>
+          {% elif client.subscription %}
+            <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full capitalize">
+              {{ client.subscription.statut }}
+            </span>
+          {% else %}
+            <span class="text-xs text-gray-300">—</span>
+          {% endif %}
+        </td>
+        <td class="px-6 py-4 text-gray-500 text-xs">
+          {% if client.subscription and client.subscription.current_period_end %}
+            {{ client.subscription.current_period_end.strftime('%d/%m/%Y') }}
+          {% else %}—{% endif %}
+        </td>
+        <td class="px-6 py-4 text-gray-400 text-xs">
+          {{ client.created_at.strftime('%d/%m/%Y') }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <div class="px-6 py-12 text-center text-gray-400 text-sm">Aucun client inscrit.</div>
+  {% endif %}
+</div>
+
+{% endblock %}
