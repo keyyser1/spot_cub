@@ -1,134 +1,290 @@
 {% extends "base.html" %}
-{% block title %}Studio Pilates — Reformer & Mat à Paris{% endblock %}
+{% block title %}Spot Club — Reformer Pilates à Paris 14e{% endblock %}
 
 {% block content %}
 
-<!-- Hero -->
-<section class="relative bg-sage-700 text-white overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-br from-sage-800 via-sage-700 to-sage-500 opacity-90"></div>
-  <div class="relative max-w-6xl mx-auto px-4 py-28 md:py-36 text-center">
-    <span class="inline-block bg-white/20 text-white text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-6">
-      Reformer Pilates à Paris 14e
-    </span>
-    <h1 class="text-4xl md:text-6xl font-light leading-tight mb-6">
-      Retrouvez votre<br/>
-      <span class="font-semibold">équilibre & votre force</span>
-    </h1>
-    <p class="text-sage-100 text-lg md:text-xl max-w-xl mx-auto mb-10 font-light">
-      Cours de Reformer Pilates en petits groupes de 8.
-      55 minutes pour sculpter, renforcer et retrouver votre équilibre.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="/planning"
-         class="px-8 py-3 bg-white text-sage-700 font-semibold rounded-xl hover:bg-cream-100 transition-colors">
-        Voir le planning
+<!-- ============= HERO ============= -->
+<section class="relative overflow-hidden bg-cream-50">
+  <!-- Animated background blobs -->
+  <div class="absolute -top-20 -right-20 w-[520px] h-[520px] bg-brand-200/50 rounded-full blur-3xl animate-blob"></div>
+  <div class="absolute top-40 -left-32 w-[480px] h-[480px] bg-coral-200/60 rounded-full blur-3xl animate-blob delay-2s"></div>
+  <div class="absolute bottom-0 right-1/4 w-[360px] h-[360px] bg-butter-200/60 rounded-full blur-3xl animate-blob delay-4s"></div>
+
+  <div class="relative max-w-6xl mx-auto px-4 pt-20 md:pt-28 pb-24 md:pb-32 grid lg:grid-cols-2 gap-12 items-center">
+
+    <!-- Texte -->
+    <div class="animate-fadeup">
+      <span class="inline-flex items-center gap-2 bg-white/80 backdrop-blur border border-brand-100 text-brand-700 text-xs font-semibold tracking-wider uppercase px-3 py-1.5 rounded-full mb-6 shadow-soft">
+        <span class="w-1.5 h-1.5 bg-coral-500 rounded-full animate-pulse"></span>
+        Studio Reformer · Paris 14e
+      </span>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] text-ink-800 tracking-tight mb-6">
+        Bougez<br/>
+        <span class="text-gradient-brand italic">en pleine</span><br/>
+        conscience<span class="text-coral-500">.</span>
+      </h1>
+      <p class="text-ink-500 text-lg md:text-xl max-w-lg leading-relaxed mb-9">
+        Cours de Reformer Pilates en petits groupes de 8. <span class="text-ink-700 font-medium">55 minutes</span> pour sculpter, renforcer et retrouver votre équilibre.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="/planning"
+           class="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-gradient-to-tr from-brand-700 to-brand-500 text-white font-semibold rounded-full shadow-brand hover:shadow-pop hover:-translate-y-0.5 transition-all">
+          Voir le planning
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="/tarifs"
+           class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white border border-ink-200 text-ink-700 font-semibold rounded-full hover:border-coral-300 hover:text-coral-600 transition-all">
+          Nos abonnements
+        </a>
+      </div>
+
+      <!-- Mini stats -->
+      <div class="mt-12 grid grid-cols-3 max-w-md gap-6">
+        <div>
+          <div class="font-display text-3xl font-semibold text-brand-700">8</div>
+          <div class="text-xs text-ink-400 uppercase tracking-wider mt-1">Reformer / cours</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl font-semibold text-coral-500">55<span class="text-base">min</span></div>
+          <div class="text-xs text-ink-400 uppercase tracking-wider mt-1">Par séance</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl font-semibold text-butter-500">7j/7</div>
+          <div class="text-xs text-ink-400 uppercase tracking-wider mt-1">Cours offerts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual: logo géant + cards flottantes -->
+    <div class="relative h-[440px] hidden lg:block animate-fadeup" style="animation-delay:.15s">
+      <!-- Big logo mark -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <svg viewBox="0 0 400 400" fill="none" class="w-[420px] h-[420px] animate-slowspin">
+          <circle cx="180" cy="220" r="150" stroke="#047857" stroke-width="6" stroke-dasharray="3 12"/>
+        </svg>
+      </div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <svg viewBox="0 0 400 400" fill="none" class="w-[360px] h-[360px]">
+          <circle cx="180" cy="220" r="120" stroke="#047857" stroke-width="3"/>
+          <circle cx="300" cy="120" r="38" fill="#f04e1c"/>
+        </svg>
+      </div>
+
+      <!-- Floating card 1: rating -->
+      <div class="absolute top-6 left-0 bg-white rounded-2xl shadow-soft p-4 w-56 animate-float">
+        <div class="flex items-center gap-1 text-butter-500 text-sm mb-1">
+          ★★★★★
+        </div>
+        <div class="text-xs text-ink-500 leading-snug">"Une vraie révélation. Je suis transformée en 6 semaines."</div>
+        <div class="text-xs text-ink-400 mt-2">— Camille, membre</div>
+      </div>
+
+      <!-- Floating card 2: booking -->
+      <div class="absolute bottom-12 right-0 bg-white rounded-2xl shadow-soft p-4 w-56 animate-float" style="animation-delay:2s">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-2 h-2 rounded-full bg-coral-500 animate-pulse"></div>
+          <span class="text-xs font-semibold text-ink-600 uppercase tracking-wider">En live</span>
+        </div>
+        <div class="text-sm font-semibold text-ink-800">Reformer Sculpt</div>
+        <div class="text-xs text-ink-500">Aujourd'hui · 18h30</div>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-xs text-brand-600 font-medium">2 places restantes</span>
+          <span class="px-2 py-0.5 text-xs bg-coral-50 text-coral-600 rounded-full font-medium">Hot</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= VALEURS ============= -->
+<section class="max-w-6xl mx-auto px-4 py-24">
+  <div class="text-center mb-14">
+    <span class="text-xs font-semibold tracking-widest text-coral-500 uppercase">Pourquoi Spot Club</span>
+    <h2 class="font-display text-3xl md:text-5xl text-ink-800 mt-3 max-w-2xl mx-auto leading-tight">
+      Un studio pensé pour <em class="text-gradient-warm not-italic">vous</em>.
+    </h2>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- card 1 -->
+    <div class="relative card-lift p-8 bg-white rounded-3xl border border-ink-100 overflow-hidden">
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-100 rounded-full blur-2xl opacity-70"></div>
+      <div class="relative">
+        <div class="w-14 h-14 bg-gradient-to-br from-brand-400 to-brand-600 rounded-2xl flex items-center justify-center mb-5 shadow-brand rotate-3">
+          <svg class="w-7 h-7 text-white -rotate-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-ink-800 mb-2">Petits groupes</h3>
+        <p class="text-ink-500 text-sm leading-relaxed">Maximum 8 élèves par cours pour un suivi personnalisé et une atmosphère sereine.</p>
+      </div>
+    </div>
+
+    <!-- card 2 -->
+    <div class="relative card-lift p-8 bg-white rounded-3xl border border-ink-100 overflow-hidden">
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-coral-100 rounded-full blur-2xl opacity-70"></div>
+      <div class="relative">
+        <div class="w-14 h-14 bg-gradient-to-br from-coral-400 to-coral-600 rounded-2xl flex items-center justify-center mb-5 shadow-pop -rotate-3">
+          <svg class="w-7 h-7 text-white rotate-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-ink-800 mb-2">Tous niveaux</h3>
+        <p class="text-ink-500 text-sm leading-relaxed">Des cours adaptés aux débutants comme aux pratiquants avancés. Venez comme vous êtes.</p>
+      </div>
+    </div>
+
+    <!-- card 3 -->
+    <div class="relative card-lift p-8 bg-white rounded-3xl border border-ink-100 overflow-hidden">
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-butter-100 rounded-full blur-2xl opacity-80"></div>
+      <div class="relative">
+        <div class="w-14 h-14 bg-gradient-to-br from-butter-300 to-butter-500 rounded-2xl flex items-center justify-center mb-5 shadow-soft rotate-3">
+          <svg class="w-7 h-7 text-white -rotate-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-display text-xl font-semibold text-ink-800 mb-2">Réservation en 1 clic</h3>
+        <p class="text-ink-500 text-sm leading-relaxed">Réservez vos cours en ligne 24h/24, depuis votre téléphone, en quelques secondes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= TYPES DE COURS ============= -->
+<section class="relative bg-white py-24 overflow-hidden">
+  <div class="absolute top-0 left-1/3 w-96 h-96 bg-brand-50 rounded-full blur-3xl"></div>
+
+  <div class="relative max-w-6xl mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <span class="text-xs font-semibold tracking-widest text-brand-700 uppercase">Nos cours</span>
+        <h2 class="font-display text-3xl md:text-5xl text-ink-800 mt-3 max-w-xl leading-tight">
+          Quatre formats. Une seule <em class="text-gradient-brand not-italic">méthode</em>.
+        </h2>
+      </div>
+      <a href="/planning" class="text-coral-500 font-semibold link-underline self-start md:self-auto">
+        Voir tout le planning →
       </a>
-      <a href="/tarifs"
-         class="px-8 py-3 border border-white/50 text-white font-medium rounded-xl hover:bg-white/10 transition-colors">
-        Nos abonnements
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="card-lift flex gap-5 p-7 rounded-3xl bg-cream-50 border border-cream-100 hover:border-brand-300 transition-colors">
+        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl shadow-soft border border-ink-100">🏋️</div>
+        <div>
+          <h3 class="font-display text-lg font-semibold text-ink-800 mb-1">Reformer Fondamentaux</h3>
+          <p class="text-ink-500 text-sm leading-relaxed">Maîtrise des bases du Reformer. Posture, gainage et mobilité sur machine. Le point de départ idéal.</p>
+          <span class="mt-3 inline-block text-xs font-semibold bg-brand-100 text-brand-700 px-2.5 py-1 rounded-full">Débutant</span>
+        </div>
+      </div>
+
+      <div class="card-lift flex gap-5 p-7 rounded-3xl bg-cream-50 border border-cream-100 hover:border-coral-300 transition-colors">
+        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl shadow-soft border border-ink-100">💪</div>
+        <div>
+          <h3 class="font-display text-lg font-semibold text-ink-800 mb-1">Reformer Sculpt</h3>
+          <p class="text-ink-500 text-sm leading-relaxed">Renforcement musculaire intensif. Jambes, fessiers, abdos — résultats visibles rapidement.</p>
+          <span class="mt-3 inline-block text-xs font-semibold bg-coral-100 text-coral-700 px-2.5 py-1 rounded-full">Intermédiaire</span>
+        </div>
+      </div>
+
+      <div class="card-lift flex gap-5 p-7 rounded-3xl bg-cream-50 border border-cream-100 hover:border-butter-300 transition-colors">
+        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl shadow-soft border border-ink-100">🌊</div>
+        <div>
+          <h3 class="font-display text-lg font-semibold text-ink-800 mb-1">Reformer Flow</h3>
+          <p class="text-ink-500 text-sm leading-relaxed">Enchaînements fluides et dynamiques sur machine. Cardio et souplesse combinés.</p>
+          <span class="mt-3 inline-block text-xs font-semibold bg-butter-100 text-amber-700 px-2.5 py-1 rounded-full">Intermédiaire / Avancé</span>
+        </div>
+      </div>
+
+      <div class="card-lift flex gap-5 p-7 rounded-3xl bg-cream-50 border border-cream-100 hover:border-plum-500 transition-colors">
+        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl shadow-soft border border-ink-100">🌙</div>
+        <div>
+          <h3 class="font-display text-lg font-semibold text-ink-800 mb-1">Reformer Stretch</h3>
+          <p class="text-ink-500 text-sm leading-relaxed">Étirements profonds sur machine. Récupération active — parfait en fin de journée.</p>
+          <span class="mt-3 inline-block text-xs font-semibold bg-plum-50 text-plum-700 px-2.5 py-1 rounded-full">Tous niveaux</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="/planning" class="inline-flex items-center gap-2 px-8 py-3.5 bg-ink-800 text-white font-semibold rounded-full hover:bg-brand-700 transition-colors">
+        Voir toutes les séances →
       </a>
     </div>
   </div>
-  <!-- Decorative circles -->
-  <div class="absolute top-10 right-10 w-64 h-64 rounded-full border border-white/10"></div>
-  <div class="absolute -bottom-20 -left-20 w-96 h-96 rounded-full border border-white/10"></div>
 </section>
 
-<!-- Valeurs -->
+<!-- ============= TÉMOIGNAGE / SOCIAL PROOF ============= -->
 <section class="max-w-6xl mx-auto px-4 py-20">
-  <div class="grid md:grid-cols-3 gap-8 text-center">
-    <div class="p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-      <div class="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-        <svg class="w-6 h-6 text-sage-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="p-7 bg-gradient-to-br from-brand-700 to-brand-900 rounded-3xl text-white shadow-brand">
+      <div class="text-butter-300 text-lg mb-3">★★★★★</div>
+      <p class="text-brand-50 leading-relaxed text-sm">"Le meilleur studio de Pilates de Paris. L'équipe est aux petits soins, les machines récentes et les cours toujours différents."</p>
+      <div class="mt-5 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-coral-500 flex items-center justify-center text-xs font-bold">SL</div>
+        <div>
+          <div class="text-sm font-semibold">Sophie L.</div>
+          <div class="text-xs text-brand-200">Membre depuis 2024</div>
+        </div>
       </div>
-      <h3 class="font-semibold text-gray-800 mb-2">Petits groupes</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Maximum 10 élèves par cours pour un suivi personnalisé et une atmosphère sereine.</p>
     </div>
-    <div class="p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-      <div class="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-        <svg class="w-6 h-6 text-sage-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
+    <div class="p-7 bg-cream-100 rounded-3xl border border-cream-200">
+      <div class="text-butter-500 text-lg mb-3">★★★★★</div>
+      <p class="text-ink-700 leading-relaxed text-sm">"Après 3 mois, mon dos ne me fait plus mal. Spot Club a changé ma façon de bouger au quotidien."</p>
+      <div class="mt-5 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center text-xs font-bold text-white">MB</div>
+        <div>
+          <div class="text-sm font-semibold text-ink-800">Marie B.</div>
+          <div class="text-xs text-ink-400">Membre depuis 2023</div>
+        </div>
       </div>
-      <h3 class="font-semibold text-gray-800 mb-2">Tous niveaux</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Des cours adaptés aux débutants comme aux pratiquants avancés. Venez comme vous êtes.</p>
     </div>
-    <div class="p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-      <div class="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-        <svg class="w-6 h-6 text-sage-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
+    <div class="p-7 bg-gradient-to-br from-coral-500 to-coral-600 rounded-3xl text-white shadow-pop">
+      <div class="text-butter-200 text-lg mb-3">★★★★★</div>
+      <p class="text-coral-50 leading-relaxed text-sm">"Atmosphère unique, profs au top, format 55 minutes parfait pour ma pause déj'. Je recommande !"</p>
+      <div class="mt-5 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-xs font-bold text-coral-600">CD</div>
+        <div>
+          <div class="text-sm font-semibold">Claire D.</div>
+          <div class="text-xs text-coral-100">Membre depuis 2025</div>
+        </div>
       </div>
-      <h3 class="font-semibold text-gray-800 mb-2">Réservation facile</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Réservez vos cours en ligne en quelques secondes, 24h/24, depuis votre téléphone.</p>
     </div>
   </div>
 </section>
 
-<!-- Types de cours -->
-<section class="bg-white py-20">
-<div class="grid md:grid-cols-2 gap-6">
-  <div class="flex gap-5 p-6 rounded-2xl border border-sage-100 hover:border-sage-300 transition-colors">
-    <div class="w-14 h-14 bg-sage-50 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">🏋️</div>
-    <div>
-      <h3 class="font-semibold text-gray-800 mb-1">Reformer Fondamentaux</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Maîtrise des bases du Reformer. Posture, gainage et mobilité sur machine. Le point de départ idéal.</p>
-      <span class="mt-2 inline-block text-xs bg-cream-200 text-amber-700 px-2 py-0.5 rounded-full">Débutant</span>
-    </div>
-  </div>
-  <div class="flex gap-5 p-6 rounded-2xl border border-sage-100 hover:border-sage-300 transition-colors">
-    <div class="w-14 h-14 bg-sage-50 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">💪</div>
-    <div>
-      <h3 class="font-semibold text-gray-800 mb-1">Reformer Sculpt</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Renforcement musculaire intensif sur Reformer. Jambes, fessiers, abdos — résultats visibles rapidement.</p>
-      <span class="mt-2 inline-block text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">Intermédiaire</span>
-    </div>
-  </div>
-  <div class="flex gap-5 p-6 rounded-2xl border border-sage-100 hover:border-sage-300 transition-colors">
-    <div class="w-14 h-14 bg-sage-50 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">🌊</div>
-    <div>
-      <h3 class="font-semibold text-gray-800 mb-1">Reformer Flow</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Enchaînements fluides et dynamiques sur machine. Cardio et souplesse combinés pour une pratique complète.</p>
-      <span class="mt-2 inline-block text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">Intermédiaire / Avancé</span>
-    </div>
-  </div>
-  <div class="flex gap-5 p-6 rounded-2xl border border-sage-100 hover:border-sage-300 transition-colors">
-    <div class="w-14 h-14 bg-sage-50 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">🌙</div>
-    <div>
-      <h3 class="font-semibold text-gray-800 mb-1">Reformer Stretch</h3>
-      <p class="text-gray-500 text-sm leading-relaxed">Étirements profonds sur machine. Récupération active et retour au calme — parfait en fin de journée.</p>
-      <span class="mt-2 inline-block text-xs bg-sage-100 text-sage-700 px-2 py-0.5 rounded-full">Tous niveaux</span>
-    </div>
-  </div>
-</div>
-      <a href="/planning" class="px-8 py-3 bg-sage-600 text-white font-medium rounded-xl hover:bg-sage-700 transition-colors inline-block">
-        Voir toutes les séances
-      </a>
-    </div>
-  </div>
-</section>
+<!-- ============= CTA FINAL ============= -->
+<section class="relative py-20 px-4 overflow-hidden">
+  <div class="relative max-w-5xl mx-auto bg-gradient-to-br from-ink-800 via-brand-900 to-brand-700 rounded-[2.5rem] px-8 py-16 md:px-16 md:py-20 text-center overflow-hidden shadow-2xl">
+    <!-- decorative blobs -->
+    <div class="absolute -top-20 -left-20 w-80 h-80 bg-coral-500/30 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-butter-400/20 rounded-full blur-3xl"></div>
 
-<!-- CTA abonnement -->
-<section class="bg-sage-700 text-white py-20">
-  <div class="max-w-2xl mx-auto px-4 text-center">
-    <h2 class="text-3xl font-light mb-4">Prêt(e) à commencer ?</h2>
-    <p class="text-sage-200 mb-8">Rejoignez notre studio et réservez vos premiers cours dès aujourd'hui.</p>
-    {% if user %}
-      <a href="/planning" class="px-8 py-3 bg-white text-sage-700 font-semibold rounded-xl hover:bg-cream-100 transition-colors">
-        Réserver un cours →
-      </a>
-    {% else %}
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="/auth/register" class="px-8 py-3 bg-white text-sage-700 font-semibold rounded-xl hover:bg-cream-100 transition-colors">
-          Créer mon compte
+    <div class="relative">
+      <svg viewBox="0 0 48 48" fill="none" class="w-12 h-12 mx-auto mb-6">
+        <circle cx="22" cy="26" r="17" stroke="#a7f3d0" stroke-width="2.6"/>
+        <circle cx="36" cy="14" r="5" fill="#ff6a3d"/>
+      </svg>
+      <h2 class="font-display text-4xl md:text-5xl text-white leading-tight mb-4">
+        Prêt(e) à <em class="text-butter-300 not-italic">commencer</em> ?
+      </h2>
+      <p class="text-brand-100 text-lg max-w-md mx-auto mb-10">
+        Rejoignez Spot Club et réservez votre premier cours dès aujourd'hui.
+      </p>
+      {% if user %}
+        <a href="/planning" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-700 font-semibold rounded-full hover:bg-coral-50 hover:text-coral-600 transition-all">
+          Réserver un cours →
         </a>
-        <a href="/tarifs" class="px-8 py-3 border border-white/50 text-white font-medium rounded-xl hover:bg-white/10 transition-colors">
-          Voir les tarifs
-        </a>
-      </div>
-    {% endif %}
+      {% else %}
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/auth/register" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-coral-500 text-white font-semibold rounded-full shadow-pop hover:bg-coral-600 hover:-translate-y-0.5 transition-all">
+            Créer mon compte
+          </a>
+          <a href="/tarifs" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 border border-white/30 backdrop-blur text-white font-medium rounded-full hover:bg-white/20 transition-all">
+            Voir les tarifs
+          </a>
+        </div>
+      {% endif %}
+    </div>
   </div>
 </section>
 

@@ -1,14 +1,113 @@
-/* Smooth scrolling */
+/* ============================================
+   Spot Club — Global styles
+   ============================================ */
+
 html { scroll-behavior: smooth; }
 
-/* Focus visible */
-*:focus-visible {
-  outline: 2px solid #5c845c;
-  outline-offset: 2px;
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #f4f7f4; }
-::-webkit-scrollbar-thumb { background: #a3c0a3; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #5c845c; }
+/* Focus visible — coral pour vivacité */
+*:focus-visible {
+  outline: 2px solid #f04e1c;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Scrollbar — discret, cream + brand */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #fdfaf3; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #34d399 0%, #047857 100%);
+  border-radius: 8px;
+  border: 2px solid #fdfaf3;
+}
+::-webkit-scrollbar-thumb:hover { background: #f04e1c; }
+
+/* ----- Display headings ----- */
+.font-display { font-feature-settings: "ss01" on, "ss02" on; letter-spacing: -0.01em; }
+
+/* ----- Gradient text utility ----- */
+.text-gradient-brand {
+  background: linear-gradient(90deg, #047857 0%, #10b981 60%, #34d399 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-warm {
+  background: linear-gradient(90deg, #f04e1c 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ----- Noise texture overlay (subtle, premium feel) ----- */
+.bg-noise::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+  opacity: 0.05;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ----- Soft animated blobs ----- */
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(20px, -10px) scale(1.05); }
+  66%      { transform: translate(-15px, 12px) scale(0.95); }
+}
+.animate-blob { animation: blob-drift 14s ease-in-out infinite; }
+.delay-2s { animation-delay: 2s; }
+.delay-4s { animation-delay: 4s; }
+
+/* ----- Card hover lift ----- */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(.2,.7,.2,1), box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px -16px rgba(20, 40, 30, 0.18);
+}
+
+/* ----- Underline animated ----- */
+.link-underline {
+  background-image: linear-gradient(90deg, currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.3s ease;
+}
+.link-underline:hover { background-size: 100% 1.5px; }
+
+/* ----- Buttons primary glow ----- */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+.btn-glow::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.25), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.btn-glow:hover::after { opacity: 1; }
+
+/* ----- Section dividers ----- */
+.divider-wave {
+  height: 60px;
+  background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 60' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><path d='M0,30 C300,60 600,0 1200,30 L1200,60 L0,60 Z' fill='%23fdfaf3'/></svg>") center / cover no-repeat;
+}
+
+/* ----- Reduced motion ----- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

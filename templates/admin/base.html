@@ -3,60 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Admin{% endblock %} — Studio Pilates</title>
+  <title>{% block title %}Admin{% endblock %} — Spot Club</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            sage: { 50:'#f4f7f4',100:'#e4ede4',200:'#c9dbc9',300:'#a3c0a3',400:'#7a9f7a',500:'#5c845c',600:'#486848',700:'#3a543a',800:'#2f432f',900:'#273827' },
+            brand:  { 50:'#ecfdf5', 100:'#d1fae5', 200:'#a7f3d0', 300:'#6ee7b7', 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857', 800:'#065f46', 900:'#064e3b' },
+            // sage = alias rétro-compatible vers brand (anciennes pages admin)
+            sage:   { 50:'#ecfdf5', 100:'#d1fae5', 200:'#a7f3d0', 300:'#6ee7b7', 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857', 800:'#065f46', 900:'#064e3b' },
+            coral:  { 50:'#fff4f0', 100:'#ffe4d9', 400:'#ff6a3d', 500:'#f04e1c', 600:'#cf3a0e' },
+            butter: { 50:'#fffbeb', 100:'#fef3c7', 300:'#fcd34d', 500:'#f59e0b' },
+            cream:  { 50:'#fdfaf3', 100:'#faf3e3', 200:'#f4e7c8' },
+            ink:    { 50:'#f7f6f4', 100:'#ebe9e4', 200:'#d6d3cb', 300:'#a8a49a', 400:'#7a7569', 500:'#56524a', 600:'#3f3c36', 700:'#2c2a26', 800:'#1c1a17', 900:'#0f0e0c' },
+          },
+          fontFamily: {
+            sans:    ['Inter', 'system-ui', 'sans-serif'],
+            display: ['"Fraunces"', 'Georgia', 'serif'],
           }
         }
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>body { font-family: 'Inter', sans-serif; }</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-ink-50 text-ink-700 font-sans">
 
 <div class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <aside class="w-56 bg-sage-800 text-sage-100 flex flex-col flex-shrink-0">
-    <div class="px-5 py-5 border-b border-sage-700">
-      <div class="text-white font-semibold text-sm">Studio Pilates</div>
-      <div class="text-sage-400 text-xs">Administration</div>
+  <aside class="w-60 bg-gradient-to-b from-ink-800 via-ink-800 to-brand-900 text-ink-200 flex flex-col flex-shrink-0 relative overflow-hidden">
+    <!-- decorative blobs -->
+    <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 -left-10 w-32 h-32 bg-coral-500/20 rounded-full blur-3xl"></div>
+
+    <div class="relative px-5 py-6 border-b border-ink-700/60">
+      <div class="flex items-center gap-2.5">
+        <svg viewBox="0 0 48 48" fill="none" class="w-7 h-7 text-brand-300">
+          <circle cx="22" cy="26" r="17" stroke="currentColor" stroke-width="2.6"/>
+          <circle cx="36" cy="14" r="5" fill="#ff6a3d"/>
+        </svg>
+        <div>
+          <div class="text-white font-display font-semibold text-base">Spot Club</div>
+          <div class="text-ink-300 text-xs">Administration</div>
+        </div>
+      </div>
     </div>
-    <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
+
+    <nav class="relative flex-1 px-3 py-5 space-y-1 text-sm">
       <a href="/admin/dashboard"
-         class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sage-700 transition-colors {% if request.url.path == '/admin/dashboard' %}bg-sage-700 text-white{% endif %}">
+         class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors {% if request.url.path == '/admin/dashboard' %}bg-white/10 text-white shadow-inner{% endif %}">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         Tableau de bord
       </a>
       <a href="/admin/cours"
-         class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sage-700 transition-colors {% if '/admin/cours' in request.url.path %}bg-sage-700 text-white{% endif %}">
+         class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors {% if '/admin/cours' in request.url.path %}bg-white/10 text-white shadow-inner{% endif %}">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         Cours
       </a>
       <a href="/admin/sessions"
-         class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sage-700 transition-colors {% if '/admin/sessions' in request.url.path %}bg-sage-700 text-white{% endif %}">
+         class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors {% if '/admin/sessions' in request.url.path %}bg-white/10 text-white shadow-inner{% endif %}">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         Planning
       </a>
       <a href="/admin/clients"
-         class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sage-700 transition-colors {% if '/admin/clients' in request.url.path %}bg-sage-700 text-white{% endif %}">
+         class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors {% if '/admin/clients' in request.url.path %}bg-white/10 text-white shadow-inner{% endif %}">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         Clients
       </a>
     </nav>
-    <div class="px-3 py-4 border-t border-sage-700 space-y-1 text-sm">
-      <a href="/" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sage-700 transition-colors text-sage-300">
+
+    <div class="relative px-3 py-4 border-t border-ink-700/60 space-y-1 text-sm">
+      <a href="/" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors text-ink-300">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         Voir le site
       </a>
-      <a href="/auth/logout" class="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-sage-700 transition-colors text-sage-300">
+      <a href="/auth/logout" class="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors text-ink-300">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
         Déconnexion
       </a>
@@ -65,10 +90,10 @@
 
   <!-- Content -->
   <div class="flex-1 overflow-auto">
-    <header class="bg-white border-b border-gray-200 px-8 py-4">
-      <h1 class="text-lg font-semibold text-gray-800">{% block page_title %}{% endblock %}</h1>
+    <header class="bg-white/80 backdrop-blur border-b border-ink-100 px-8 py-4 sticky top-0 z-10">
+      <h1 class="text-lg font-display font-semibold text-ink-800">{% block page_title %}{% endblock %}</h1>
     </header>
-    <main class="px-8 py-6">{% block content %}{% endblock %}</main>
+    <main class="px-8 py-8">{% block content %}{% endblock %}</main>
   </div>
 
 </div>
