@@ -2,75 +2,79 @@
 {% block title %}Inscription — Spot Club{% endblock %}
 
 {% block content %}
-<section class="relative min-h-[80vh] flex items-center justify-center px-4 py-16 overflow-hidden">
-  <!-- Blobs -->
-  <div class="absolute top-10 -right-20 w-96 h-96 bg-coral-200/50 rounded-full blur-3xl animate-blob"></div>
-  <div class="absolute bottom-10 -left-20 w-96 h-96 bg-brand-200/50 rounded-full blur-3xl animate-blob delay-2s"></div>
-  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-72 h-72 bg-butter-200/40 rounded-full blur-3xl animate-blob delay-4s"></div>
+<section class="min-h-[calc(100vh-5rem)] grid lg:grid-cols-2">
 
-  <div class="relative w-full max-w-md animate-fadeup">
-    <!-- Logo + heading -->
-    <div class="text-center mb-10">
-      <a href="/" class="inline-flex items-center justify-center mb-6">
-        <svg viewBox="0 0 48 48" fill="none" class="w-14 h-14 text-brand-700">
-          <circle cx="22" cy="26" r="17" stroke="currentColor" stroke-width="2.6"/>
-          <circle cx="36" cy="14" r="5" fill="#f04e1c"/>
-        </svg>
-      </a>
-      <h1 class="font-display text-4xl font-medium text-ink-800">Rejoignez le club</h1>
-      <p class="text-ink-500 mt-2">Créez votre compte en moins d'une minute</p>
-    </div>
+  <!-- Form -->
+  <div class="flex items-center justify-center px-5 sm:px-8 py-16 lg:py-12 bg-cream-50 order-2 lg:order-1">
+    <div class="w-full max-w-md animate-fadeup">
+      <div class="mb-10">
+        <div class="eyebrow mb-4">— Inscription</div>
+        <h1 class="headline-xl text-4xl md:text-5xl text-ink-900 mb-3">Rejoignez le club.</h1>
+        <p class="text-ink-500">Créez votre compte en moins d'une minute.</p>
+      </div>
 
-    <div class="bg-white border border-ink-100 rounded-3xl p-8 shadow-soft">
       {% if error %}
-      <div class="bg-coral-50 border border-coral-200 text-coral-700 rounded-2xl px-4 py-3 text-sm mb-6 flex items-center gap-2">
+      <div class="bg-coral-50 border border-coral-200 text-coral-700 rounded-2xl px-4 py-3 text-sm mb-6 flex items-center gap-2.5">
         <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         {{ error }}
       </div>
       {% endif %}
 
-      <form method="post" action="/auth/register" class="space-y-4">
+      <form method="post" action="/auth/register" class="space-y-5">
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-ink-600 uppercase tracking-wider mb-2">Prénom</label>
+            <label class="block text-xs font-bold text-ink-700 uppercase tracking-super mb-2">Prénom</label>
             <input type="text" name="prenom" required autocomplete="given-name"
-                   class="w-full px-4 py-3 bg-cream-50 border border-ink-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white focus:border-transparent transition placeholder:text-ink-300"
+                   class="w-full px-4 py-3.5 bg-white border border-ink-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-ink-900 focus:border-transparent transition placeholder:text-ink-300"
                    placeholder="Marie"/>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-ink-600 uppercase tracking-wider mb-2">Nom</label>
+            <label class="block text-xs font-bold text-ink-700 uppercase tracking-super mb-2">Nom</label>
             <input type="text" name="nom" required autocomplete="family-name"
-                   class="w-full px-4 py-3 bg-cream-50 border border-ink-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white focus:border-transparent transition placeholder:text-ink-300"
+                   class="w-full px-4 py-3.5 bg-white border border-ink-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-ink-900 focus:border-transparent transition placeholder:text-ink-300"
                    placeholder="Dupont"/>
           </div>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-ink-600 uppercase tracking-wider mb-2">Email</label>
+          <label class="block text-xs font-bold text-ink-700 uppercase tracking-super mb-2">Email</label>
           <input type="email" name="email" required autocomplete="email"
-                 class="w-full px-4 py-3 bg-cream-50 border border-ink-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white focus:border-transparent transition placeholder:text-ink-300"
+                 class="w-full px-4 py-3.5 bg-white border border-ink-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-ink-900 focus:border-transparent transition placeholder:text-ink-300"
                  placeholder="vous@exemple.fr"/>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-ink-600 uppercase tracking-wider mb-2">Mot de passe</label>
+          <label class="block text-xs font-bold text-ink-700 uppercase tracking-super mb-2">Mot de passe</label>
           <input type="password" name="password" required minlength="8"
-                 class="w-full px-4 py-3 bg-cream-50 border border-ink-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-white focus:border-transparent transition placeholder:text-ink-300"
+                 class="w-full px-4 py-3.5 bg-white border border-ink-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-ink-900 focus:border-transparent transition placeholder:text-ink-300"
                  placeholder="Minimum 8 caractères"/>
         </div>
-        <button type="submit"
-                class="w-full py-3.5 bg-gradient-to-tr from-coral-500 to-coral-600 text-white font-semibold rounded-2xl shadow-pop hover:shadow-brand hover:-translate-y-0.5 transition-all mt-2">
-          Créer mon compte →
+        <button type="submit" class="btn btn-coral btn-lg btn-block mt-2">
+          Créer mon compte
         </button>
 
         <p class="text-xs text-ink-400 text-center mt-4 leading-relaxed">
           En créant un compte, vous acceptez nos conditions générales et notre politique de confidentialité.
         </p>
       </form>
-    </div>
 
-    <p class="text-center text-sm text-ink-500 mt-6">
-      Déjà membre ?
-      <a href="/auth/login" class="text-brand-700 font-semibold link-underline">Se connecter</a>
-    </p>
+      <p class="text-center text-sm text-ink-500 mt-8">
+        Déjà membre ?
+        <a href="/auth/login" class="text-ink-900 font-semibold link-underline">Se connecter</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Visuel -->
+  <div class="hidden lg:block relative order-1 lg:order-2">
+    <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=1400&q=80&auto=format&fit=crop"
+         alt="Studio Pilates Reformer"
+         class="absolute inset-0 w-full h-full object-cover"/>
+    <div class="absolute inset-0 bg-gradient-to-bl from-ink-900/80 via-ink-900/40 to-transparent"></div>
+    <div class="absolute bottom-12 left-12 right-12 text-cream-50">
+      <div class="text-xs uppercase tracking-super text-coral-300 font-semibold mb-4">— Spot Club</div>
+      <p class="font-display text-3xl xl:text-4xl leading-tight max-w-md">
+        Huit machines. Cinquante-cinq minutes. <span class="italic text-coral-400">Vous.</span>
+      </p>
+    </div>
   </div>
 </section>
 {% endblock %}

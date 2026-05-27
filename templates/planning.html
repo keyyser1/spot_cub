@@ -2,165 +2,155 @@
 {% block title %}Planning — Spot Club{% endblock %}
 
 {% block content %}
-<section class="relative overflow-hidden">
-  <div class="absolute top-0 left-0 w-96 h-96 bg-brand-100/40 rounded-full blur-3xl"></div>
-  <div class="absolute top-40 right-0 w-80 h-80 bg-coral-100/40 rounded-full blur-3xl"></div>
+<section class="max-w-7xl mx-auto px-5 sm:px-8 py-14 md:py-20">
 
-  <div class="relative max-w-7xl mx-auto px-4 py-12">
-
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 animate-fadeup">
-      <div>
-        <span class="text-xs font-semibold tracking-widest text-coral-500 uppercase">Planning</span>
-        <h1 class="font-display text-4xl md:text-5xl text-ink-800 mt-2 leading-tight">
-          Semaine du <em class="text-gradient-brand not-italic">{{ monday.strftime('%d') }} au {{ sunday.strftime('%d %B') }}</em>
-        </h1>
-        <p class="text-ink-500 text-sm mt-2">Réservez vos cours en quelques secondes.</p>
-      </div>
-      <!-- Navigation semaine -->
-      <div class="flex items-center gap-2 bg-white border border-ink-100 rounded-full p-1 shadow-soft">
-        <a href="/planning?semaine={{ semaine - 1 }}"
-           class="px-4 py-2 rounded-full text-sm font-medium text-ink-600 hover:bg-cream-100 transition-colors">
-          ←
-        </a>
-        <a href="/planning?semaine=0"
-           class="px-4 py-2 rounded-full text-sm font-medium transition-colors {% if semaine == 0 %}bg-brand-600 text-white shadow-brand{% else %}text-ink-600 hover:bg-cream-100{% endif %}">
-          Aujourd'hui
-        </a>
-        <a href="/planning?semaine={{ semaine + 1 }}"
-           class="px-4 py-2 rounded-full text-sm font-medium text-ink-600 hover:bg-cream-100 transition-colors">
-          →
-        </a>
-      </div>
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 animate-fadeup">
+    <div>
+      <div class="eyebrow mb-4">— Planning</div>
+      <h1 class="headline-xl text-4xl md:text-5xl lg:text-6xl text-ink-900">
+        Semaine du <span class="italic text-coral-500">{{ monday.strftime('%d') }} au {{ sunday.strftime('%d %B') }}</span>
+      </h1>
     </div>
-
-    {% if not user %}
-    <div class="bg-gradient-to-r from-brand-50 to-cream-50 border border-brand-100 rounded-2xl p-5 mb-10 text-sm text-brand-800 flex items-center gap-4 shadow-soft">
-      <div class="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center flex-shrink-0">
-        <svg class="w-5 h-5 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
-      <span>
-        <a href="/auth/login" class="font-semibold link-underline">Connectez-vous</a> et
-        <a href="/tarifs" class="font-semibold link-underline">abonnez-vous</a> pour réserver vos cours.
-      </span>
+    <!-- Navigation semaine -->
+    <div class="flex items-center gap-1 bg-white border border-ink-100 rounded-full p-1 self-start">
+      <a href="/planning?semaine={{ semaine - 1 }}"
+         aria-label="Semaine précédente"
+         class="px-4 py-2 rounded-full text-sm font-medium text-ink-600 hover:bg-cream-100 transition-colors">
+        ←
+      </a>
+      <a href="/planning?semaine=0"
+         class="px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-super transition-colors {% if semaine == 0 %}bg-ink-900 text-cream-50{% else %}text-ink-600 hover:bg-cream-100{% endif %}">
+        Aujourd'hui
+      </a>
+      <a href="/planning?semaine={{ semaine + 1 }}"
+         aria-label="Semaine suivante"
+         class="px-4 py-2 rounded-full text-sm font-medium text-ink-600 hover:bg-cream-100 transition-colors">
+        →
+      </a>
     </div>
-    {% elif not user.has_active_subscription %}
-    <div class="bg-gradient-to-r from-butter-50 to-coral-50 border border-butter-200 rounded-2xl p-5 mb-10 text-sm text-amber-800 flex items-center gap-4 shadow-soft">
-      <div class="w-10 h-10 bg-butter-100 rounded-full flex items-center justify-center flex-shrink-0">
-        <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z"/></svg>
-      </div>
-      <span>
-        Vous n'avez pas d'abonnement actif.
-        <a href="/tarifs" class="font-semibold link-underline ml-1">Choisir un abonnement →</a>
-      </span>
-    </div>
-    {% endif %}
-
-    <!-- Grille planning -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
-      {% for jour_idx in range(7) %}
-      {% set sessions_jour = planning[jour_idx] %}
-      {% set jour_date = monday + timedelta(days=jour_idx) %}
-      {% set is_today = jour_idx == today_idx if today_idx is defined else false %}
-      <div class="{% if not sessions_jour %}opacity-60{% endif %}">
-        <!-- En-tête du jour -->
-        <div class="text-center mb-3 pb-3 border-b-2 {% if is_today %}border-coral-500{% else %}border-ink-100{% endif %}">
-          <div class="text-[10px] font-bold text-ink-400 uppercase tracking-widest">{{ jours[jour_idx][:3] }}</div>
-          <div class="font-display text-2xl font-medium {% if is_today %}text-coral-500{% else %}text-ink-800{% endif %} mt-0.5">{{ jour_date.strftime('%d') }}</div>
-        </div>
-        <!-- Sessions du jour -->
-        <div class="space-y-2.5">
-          {% if sessions_jour %}
-            {% for session in sessions_jour %}
-            {% set is_booked = session.id in user_bookings %}
-            {% set is_full   = session.places_restantes == 0 %}
-            <div class="relative rounded-2xl p-3.5 transition-all
-              {% if is_booked %}bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-brand
-              {% elif is_full %}bg-ink-50 border border-ink-100 opacity-75
-              {% else %}bg-white border border-ink-100 hover:border-brand-300 hover:shadow-soft hover:-translate-y-0.5{% endif %}">
-
-              {% if is_booked %}
-              <div class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-butter-400 rounded-full flex items-center justify-center text-[10px] text-white font-bold shadow-soft">✓</div>
-              {% endif %}
-
-              <div class="font-display font-semibold text-sm leading-tight {% if is_booked %}text-white{% else %}text-ink-800{% endif %}">
-                {{ session.course.titre }}
-              </div>
-              <div class="text-xs mt-1 flex items-center gap-1.5 {% if is_booked %}text-brand-100{% else %}text-ink-400{% endif %}">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                {{ session.date_heure.strftime('%H:%M') }} · {{ session.course.duree_minutes }}min
-              </div>
-
-              <!-- Niveau -->
-              <div class="mt-2">
-                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full
-                  {% if is_booked %}bg-white/20 text-white
-                  {% elif session.course.niveau == 'Débutant' %}bg-brand-100 text-brand-700
-                  {% elif session.course.niveau == 'Avancé' %}bg-coral-100 text-coral-700
-                  {% elif session.course.niveau == 'Intermédiaire' %}bg-butter-100 text-amber-700
-                  {% else %}bg-plum-50 text-plum-700{% endif %}">
-                  {{ session.course.niveau }}
-                </span>
-              </div>
-
-              <!-- Places -->
-              <div class="text-[11px] mt-2 font-medium
-                {% if is_booked %}text-brand-100
-                {% elif is_full %}text-coral-500
-                {% elif session.places_restantes <= 3 %}text-butter-500
-                {% else %}text-ink-400{% endif %}">
-                {% if is_full %}● Complet
-                {% elif session.places_restantes == 1 %}● 1 place restante
-                {% else %}● {{ session.places_restantes }} places
-                {% endif %}
-              </div>
-
-              <!-- Bouton réserver -->
-              {% if user and user.has_active_subscription %}
-                {% if is_booked %}
-                  <div class="mt-2.5 text-[11px] text-butter-300 font-bold uppercase tracking-wider">Réservé</div>
-                {% elif not is_full %}
-                  <form method="post" action="/planning/reserver/{{ session.id }}">
-                    <button type="submit"
-                            class="mt-2.5 w-full py-2 text-xs bg-gradient-to-tr from-brand-700 to-brand-500 text-white rounded-xl hover:shadow-brand transition-all font-semibold">
-                      Réserver
-                    </button>
-                  </form>
-                {% else %}
-                  <div class="mt-2.5 text-[11px] text-ink-300 font-medium uppercase tracking-wider">Complet</div>
-                {% endif %}
-              {% elif user %}
-                <a href="/tarifs"
-                   class="mt-2.5 block text-center py-2 text-xs border border-coral-300 text-coral-600 rounded-xl hover:bg-coral-50 transition-colors font-medium">
-                  S'abonner
-                </a>
-              {% else %}
-                <a href="/auth/login"
-                   class="mt-2.5 block text-center py-2 text-xs border border-ink-200 text-ink-500 rounded-xl hover:bg-cream-50 transition-colors font-medium">
-                  Se connecter
-                </a>
-              {% endif %}
-            </div>
-            {% endfor %}
-          {% else %}
-            <div class="bg-cream-50/50 border border-dashed border-ink-200 rounded-2xl p-3 text-center text-xs text-ink-400 py-8">
-              <div class="text-2xl mb-1 opacity-60">·</div>
-              Pas de cours
-            </div>
-          {% endif %}
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-
-    <!-- Légende -->
-    <div class="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-ink-400">
-      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>Débutant</span>
-      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-butter-400"></span>Intermédiaire</span>
-      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-coral-500"></span>Avancé</span>
-      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-plum-500"></span>Tous niveaux</span>
-    </div>
-
   </div>
+
+  {% if not user %}
+  <div class="bg-cream-100 border border-cream-200 rounded-2xl px-5 py-4 mb-10 text-sm text-ink-700 flex items-center gap-4">
+    <svg class="w-5 h-5 text-ink-900 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <span>
+      <a href="/auth/login" class="font-semibold link-underline text-ink-900">Connectez-vous</a> et
+      <a href="/tarifs" class="font-semibold link-underline text-coral-500">choisissez un abonnement</a> pour réserver vos cours.
+    </span>
+  </div>
+  {% elif not user.has_active_subscription %}
+  <div class="bg-butter-50 border border-butter-200 rounded-2xl px-5 py-4 mb-10 text-sm text-amber-800 flex items-center gap-4">
+    <svg class="w-5 h-5 text-amber-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z"/></svg>
+    <span>
+      Vous n'avez pas d'abonnement actif.
+      <a href="/tarifs" class="font-semibold link-underline ml-1">Choisir un abonnement →</a>
+    </span>
+  </div>
+  {% endif %}
+
+  <!-- Grille planning -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
+    {% for jour_idx in range(7) %}
+    {% set sessions_jour = planning[jour_idx] %}
+    {% set jour_date = monday + timedelta(days=jour_idx) %}
+    <div>
+      <!-- En-tête du jour -->
+      <div class="mb-4 pb-3 border-b border-ink-200">
+        <div class="text-[10px] font-bold text-ink-400 uppercase tracking-super">{{ jours[jour_idx][:3] }}</div>
+        <div class="font-display text-2xl font-medium text-ink-900 mt-0.5">{{ jour_date.strftime('%d') }}</div>
+      </div>
+
+      <!-- Sessions du jour -->
+      <div class="space-y-3">
+        {% if sessions_jour %}
+          {% for session in sessions_jour %}
+          {% set is_booked = session.id in user_bookings %}
+          {% set is_full   = session.places_restantes == 0 %}
+          <div class="relative rounded-2xl p-4 transition-all
+            {% if is_booked %}bg-ink-900 text-cream-50
+            {% elif is_full %}bg-cream-100 border border-ink-100 opacity-60
+            {% else %}bg-white border border-ink-100 hover:border-ink-900{% endif %}">
+
+            {% if is_booked %}
+            <div class="absolute -top-2 -right-2 w-6 h-6 bg-coral-500 rounded-full flex items-center justify-center text-[11px] text-white font-bold">✓</div>
+            {% endif %}
+
+            <div class="text-[10px] uppercase tracking-super font-semibold mb-1.5
+              {% if is_booked %}text-coral-300
+              {% elif session.course.niveau == 'Débutant' %}text-brand-700
+              {% elif session.course.niveau == 'Avancé' %}text-coral-500
+              {% elif session.course.niveau == 'Intermédiaire' %}text-butter-500
+              {% else %}text-ink-400{% endif %}">
+              {{ session.course.niveau }}
+            </div>
+
+            <div class="font-display font-semibold text-base leading-tight mb-2 {% if is_booked %}text-cream-50{% else %}text-ink-900{% endif %}">
+              {{ session.course.titre }}
+            </div>
+
+            <div class="text-xs flex items-center gap-2 mb-3 {% if is_booked %}text-ink-300{% else %}text-ink-500{% endif %}">
+              <span class="font-medium">{{ session.date_heure.strftime('%H:%M') }}</span>
+              <span class="opacity-50">·</span>
+              <span>{{ session.course.duree_minutes }} min</span>
+            </div>
+
+            <!-- Places -->
+            <div class="text-[11px] mb-3 font-medium
+              {% if is_booked %}text-cream-50/80
+              {% elif is_full %}text-coral-500
+              {% elif session.places_restantes <= 3 %}text-butter-600
+              {% else %}text-ink-400{% endif %}">
+              {% if is_full %}● Complet
+              {% elif session.places_restantes == 1 %}● 1 place restante
+              {% else %}● {{ session.places_restantes }} places
+              {% endif %}
+            </div>
+
+            <!-- Bouton réserver -->
+            {% if user and user.has_active_subscription %}
+              {% if is_booked %}
+                <div class="text-[10px] text-coral-300 font-bold uppercase tracking-super">Réservé ✓</div>
+              {% elif not is_full %}
+                <form method="post" action="/planning/reserver/{{ session.id }}">
+                  <button type="submit"
+                          class="w-full py-2 text-[11px] uppercase tracking-super bg-ink-900 text-cream-50 rounded-full hover:bg-coral-500 transition-colors font-semibold">
+                    Réserver
+                  </button>
+                </form>
+              {% else %}
+                <div class="text-[10px] text-ink-300 font-semibold uppercase tracking-super">Complet</div>
+              {% endif %}
+            {% elif user %}
+              <a href="/tarifs"
+                 class="block text-center py-2 text-[11px] uppercase tracking-super border border-coral-500 text-coral-500 rounded-full hover:bg-coral-500 hover:text-white transition-colors font-semibold">
+                S'abonner
+              </a>
+            {% else %}
+              <a href="/auth/login"
+                 class="block text-center py-2 text-[11px] uppercase tracking-super border border-ink-200 text-ink-600 rounded-full hover:bg-ink-900 hover:text-cream-50 hover:border-ink-900 transition-colors font-semibold">
+                Se connecter
+              </a>
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="text-center text-xs text-ink-300 py-10 border border-dashed border-ink-200 rounded-2xl">
+            Pas de cours
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Légende -->
+  <div class="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-xs uppercase tracking-super font-semibold text-ink-500">
+    <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-brand-600"></span>Débutant</span>
+    <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-butter-500"></span>Intermédiaire</span>
+    <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-coral-500"></span>Avancé</span>
+    <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-ink-400"></span>Tous niveaux</span>
+  </div>
+
 </section>
 {% endblock %}

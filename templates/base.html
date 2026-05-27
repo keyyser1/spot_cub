@@ -13,29 +13,16 @@
             brand:  { 50:'#ecfdf5', 100:'#d1fae5', 200:'#a7f3d0', 300:'#6ee7b7', 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857', 800:'#065f46', 900:'#064e3b' },
             coral:  { 50:'#fff4f0', 100:'#ffe4d9', 200:'#ffc1a7', 300:'#ff9670', 400:'#ff6a3d', 500:'#f04e1c', 600:'#cf3a0e', 700:'#a82e0c' },
             butter: { 50:'#fffbeb', 100:'#fef3c7', 200:'#fde68a', 300:'#fcd34d', 400:'#fbbf24', 500:'#f59e0b' },
-            plum:   { 50:'#faf5ff', 500:'#a855f7', 600:'#9333ea', 700:'#7e22ce' },
-            cream:  { 50:'#fdfaf3', 100:'#faf3e3', 200:'#f4e7c8' },
+            cream:  { 50:'#fbfaf6', 100:'#f5f1e8', 200:'#ece4cf' },
             ink:    { 50:'#f7f6f4', 100:'#ebe9e4', 200:'#d6d3cb', 300:'#a8a49a', 400:'#7a7569', 500:'#56524a', 600:'#3f3c36', 700:'#2c2a26', 800:'#1c1a17', 900:'#0f0e0c' },
           },
           fontFamily: {
             sans:    ['Inter', 'system-ui', 'sans-serif'],
             display: ['"Fraunces"', 'Georgia', 'serif'],
           },
-          boxShadow: {
-            'soft':  '0 6px 24px -8px rgba(20, 40, 30, 0.12)',
-            'pop':   '0 20px 50px -12px rgba(240, 78, 28, 0.35)',
-            'brand': '0 18px 40px -14px rgba(4, 120, 87, 0.45)',
-          },
-          keyframes: {
-            float:    { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-            slowspin: { from: { transform: 'rotate(0deg)' }, to: { transform: 'rotate(360deg)' } },
-            fadeup:   { from: { opacity: 0, transform: 'translateY(12px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
-          },
-          animation: {
-            float:    'float 6s ease-in-out infinite',
-            slowspin: 'slowspin 40s linear infinite',
-            fadeup:   'fadeup 0.7s ease-out both',
-          },
+          letterSpacing: {
+            'super': '0.18em',
+          }
         }
       }
     }
@@ -46,75 +33,72 @@
   <link rel="stylesheet" href="/static/style.css">
   {% block head %}{% endblock %}
 </head>
-<body class="bg-cream-50 text-ink-700 font-sans antialiased selection:bg-coral-200 selection:text-coral-700">
+<body class="bg-cream-50 text-ink-800 font-sans antialiased selection:bg-ink-900 selection:text-cream-50">
 
   <!-- Navigation -->
-  <nav class="bg-white/80 backdrop-blur-md border-b border-ink-100/70 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="flex items-center justify-between h-16">
+  <nav class="bg-cream-50/90 backdrop-blur-md border-b border-ink-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="flex items-center justify-between h-20">
         <!-- Logo -->
-        <a href="/" class="group flex items-center gap-2.5 font-display font-semibold text-brand-800 text-xl tracking-tight">
-          <span class="relative inline-block w-8 h-8">
-            <svg viewBox="0 0 48 48" fill="none" class="w-8 h-8 text-brand-700 transition-transform duration-500 group-hover:rotate-12">
-              <circle cx="22" cy="26" r="17" stroke="currentColor" stroke-width="2.6"/>
-              <circle cx="36" cy="14" r="5" fill="#f04e1c" class="transition-transform duration-500 group-hover:scale-110 origin-center"/>
-            </svg>
-          </span>
-          <span>Spot<span class="text-coral-500">.</span>Club</span>
+        <a href="/" class="group flex items-center gap-2.5 text-ink-900 text-xl">
+          <svg viewBox="0 0 48 48" fill="none" class="w-9 h-9 transition-transform duration-500 group-hover:rotate-12">
+            <circle cx="22" cy="26" r="17" stroke="currentColor" stroke-width="2.6"/>
+            <circle cx="36" cy="14" r="5" fill="#f04e1c"/>
+          </svg>
+          <span class="font-display font-semibold tracking-tight">Spot<span class="text-coral-500">.</span>Club</span>
         </a>
 
         <!-- Nav links -->
-        <div class="hidden md:flex items-center gap-7 text-sm font-medium text-ink-500">
-          <a href="/planning" class="hover:text-brand-700 transition-colors">Planning</a>
-          <a href="/tarifs"   class="hover:text-brand-700 transition-colors">Tarifs</a>
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium text-ink-700">
+          <a href="/" class="nav-link">Accueil</a>
+          <a href="/planning" class="nav-link">Planning</a>
+          <a href="/tarifs"   class="nav-link">Tarifs</a>
           {% if user %}
             {% if user.role == 'admin' %}
-              <a href="/admin/dashboard" class="hover:text-brand-700 transition-colors">Admin</a>
+              <a href="/admin/dashboard" class="nav-link">Admin</a>
             {% endif %}
-            <a href="/dashboard" class="hover:text-brand-700 transition-colors">Mon espace</a>
-            <a href="/auth/logout" class="text-ink-300 hover:text-ink-500 transition-colors text-xs">Déconnexion</a>
+            <a href="/dashboard" class="nav-link">Mon espace</a>
+            <a href="/auth/logout" class="text-ink-400 hover:text-ink-700 transition-colors text-xs uppercase tracking-super">Déconnexion</a>
           {% else %}
-            <a href="/auth/login"
-               class="px-5 py-2 rounded-full bg-gradient-to-tr from-brand-700 to-brand-500 text-white font-semibold shadow-brand hover:shadow-lg hover:-translate-y-0.5 transition-all">
-              Connexion
-            </a>
+            <a href="/auth/login" class="btn btn-dark btn-sm">Connexion</a>
           {% endif %}
         </div>
 
         <!-- Mobile menu button -->
         <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
-                class="md:hidden p-2 rounded-md text-ink-500 hover:text-ink-700">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                class="md:hidden p-2 -mr-2 text-ink-800">
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16"/>
           </svg>
         </button>
       </div>
     </div>
 
     <!-- Mobile nav -->
-    <div id="mobile-menu" class="hidden md:hidden border-t border-ink-100 px-4 py-3 space-y-1 text-sm">
-      <a href="/planning" class="block py-2 text-ink-600">Planning</a>
-      <a href="/tarifs"   class="block py-2 text-ink-600">Tarifs</a>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-ink-100 px-5 py-4 space-y-1 text-sm bg-cream-50">
+      <a href="/" class="block py-2.5 text-ink-700">Accueil</a>
+      <a href="/planning" class="block py-2.5 text-ink-700">Planning</a>
+      <a href="/tarifs"   class="block py-2.5 text-ink-700">Tarifs</a>
       {% if user %}
-        {% if user.role == 'admin' %}<a href="/admin/dashboard" class="block py-2 text-ink-600">Admin</a>{% endif %}
-        <a href="/dashboard"    class="block py-2 text-ink-600">Mon espace</a>
-        <a href="/auth/logout"  class="block py-2 text-ink-300">Déconnexion</a>
+        {% if user.role == 'admin' %}<a href="/admin/dashboard" class="block py-2.5 text-ink-700">Admin</a>{% endif %}
+        <a href="/dashboard"    class="block py-2.5 text-ink-700">Mon espace</a>
+        <a href="/auth/logout"  class="block py-2.5 text-ink-400">Déconnexion</a>
       {% else %}
-        <a href="/auth/login"   class="block py-2 text-brand-700 font-medium">Connexion</a>
-        <a href="/auth/register" class="block py-2 text-coral-500 font-medium">S'inscrire</a>
+        <a href="/auth/login"   class="block py-2.5 text-ink-900 font-semibold">Connexion</a>
+        <a href="/auth/register" class="block py-2.5 text-coral-500 font-semibold">S'inscrire</a>
       {% endif %}
     </div>
   </nav>
 
   <!-- Flash messages -->
   {% if msg %}
-  <div class="max-w-6xl mx-auto px-4 pt-4 animate-fadeup">
-    <div class="{% if 'ok' in msg or 'actif' in msg %}bg-brand-50 border border-brand-200 text-brand-800{% else %}bg-butter-50 border border-butter-200 text-amber-800{% endif %} rounded-2xl px-4 py-3 text-sm flex items-center gap-2 shadow-soft">
-      {% if msg == 'reservation_ok' %}<span class="text-brand-500">✓</span> Réservation confirmée !
-      {% elif msg == 'annulation_ok' %}<span class="text-brand-500">✓</span> Réservation annulée.
-      {% elif msg == 'abonnement_actif' %}🎉 Votre abonnement est maintenant actif. Bienvenue !
-      {% elif msg == 'abonnement_annule' %}<span class="text-butter-500">●</span> Votre abonnement sera actif jusqu'à la fin de la période en cours.
-      {% elif msg == 'deja_inscrit' %}<span class="text-butter-500">●</span> Vous êtes déjà inscrit à cette séance.
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-6">
+    <div class="{% if 'ok' in msg or 'actif' in msg %}bg-brand-50 border-brand-200 text-brand-800{% else %}bg-butter-50 border-butter-200 text-amber-800{% endif %} border rounded-2xl px-5 py-3.5 text-sm flex items-center gap-3">
+      {% if msg == 'reservation_ok' %}<span class="text-brand-600 font-bold">✓</span> Réservation confirmée.
+      {% elif msg == 'annulation_ok' %}<span class="text-brand-600 font-bold">✓</span> Réservation annulée.
+      {% elif msg == 'abonnement_actif' %}<span class="text-brand-600 font-bold">✓</span> Votre abonnement est actif. Bienvenue.
+      {% elif msg == 'abonnement_annule' %}<span class="text-butter-500 font-bold">●</span> Votre abonnement sera actif jusqu'à la fin de la période en cours.
+      {% elif msg == 'deja_inscrit' %}<span class="text-butter-500 font-bold">●</span> Vous êtes déjà inscrit à cette séance.
       {% else %}{{ msg }}{% endif %}
     </div>
   </div>
@@ -124,41 +108,61 @@
   <main>{% block content %}{% endblock %}</main>
 
   <!-- Footer -->
-  <footer class="relative bg-ink-800 text-ink-300 mt-24 overflow-hidden">
-    <div class="absolute -top-24 -left-12 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-20 right-0 w-72 h-72 bg-coral-500/10 rounded-full blur-3xl"></div>
-    <div class="relative max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-3 gap-10">
-      <div>
-        <div class="flex items-center gap-2.5 font-display font-semibold text-white text-xl">
-          <svg viewBox="0 0 48 48" fill="none" class="w-7 h-7 text-brand-300">
-            <circle cx="22" cy="26" r="17" stroke="currentColor" stroke-width="2.6"/>
-            <circle cx="36" cy="14" r="5" fill="#ff6a3d"/>
-          </svg>
-          Spot<span class="text-coral-400">.</span>Club
+  <footer class="bg-ink-900 text-ink-200 mt-32">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-20">
+
+      <!-- Top: big brand wordmark -->
+      <div class="border-b border-ink-700/60 pb-12 mb-12">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <svg viewBox="0 0 48 48" fill="none" class="w-10 h-10 text-cream-50">
+                <circle cx="22" cy="26" r="17" stroke="currentColor" stroke-width="2.6"/>
+                <circle cx="36" cy="14" r="5" fill="#ff6a3d"/>
+              </svg>
+              <span class="font-display text-3xl font-semibold text-white">Spot<span class="text-coral-400">.</span>Club</span>
+            </div>
+            <p class="font-display text-2xl md:text-3xl text-cream-100 leading-tight max-w-xl">
+              Reformer Pilates. Petits groupes. Paris 14<sup>e</sup>.
+            </p>
+          </div>
+          <a href="/tarifs" class="btn btn-coral btn-md self-start md:self-auto whitespace-nowrap">Devenir membre</a>
         </div>
-        <p class="mt-3 text-sm leading-relaxed text-ink-300/80">
-          Studio de Reformer Pilates à Paris 14e — petits groupes, suivi sur-mesure, ambiance sereine.
-        </p>
       </div>
-      <div class="text-sm">
-        <div class="text-white font-semibold mb-3">Studio</div>
-        <ul class="space-y-1.5 text-ink-300/80">
-          <li>Paris 14e arrondissement</li>
-          <li>Du lundi au samedi · 7h–21h</li>
-          <li><a href="mailto:contact@spotclub.fr" class="hover:text-coral-300 transition-colors">contact@spotclub.fr</a></li>
-        </ul>
+
+      <!-- Bottom: 3 columns -->
+      <div class="grid md:grid-cols-3 gap-10 text-sm">
+        <div>
+          <div class="text-xs uppercase tracking-super text-ink-400 font-semibold mb-4">Studio</div>
+          <address class="not-italic text-ink-200 leading-relaxed">
+            4 Rue Boyer-Barret<br/>
+            75014 Paris<br/>
+            <a href="mailto:contact@spotclub.fr" class="text-coral-300 hover:text-coral-200 transition-colors mt-2 inline-block">contact@spotclub.fr</a>
+          </address>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-super text-ink-400 font-semibold mb-4">Horaires</div>
+          <ul class="space-y-1 text-ink-200">
+            <li>Lundi — Vendredi · 7h — 21h</li>
+            <li>Samedi · 9h — 18h</li>
+            <li>Dimanche · 10h — 14h</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-super text-ink-400 font-semibold mb-4">Naviguer</div>
+          <ul class="space-y-1.5">
+            <li><a href="/planning" class="text-ink-200 hover:text-coral-300 transition-colors">Planning des cours</a></li>
+            <li><a href="/tarifs" class="text-ink-200 hover:text-coral-300 transition-colors">Tarifs & abonnements</a></li>
+            <li><a href="/auth/register" class="text-ink-200 hover:text-coral-300 transition-colors">Créer un compte</a></li>
+            <li><a href="/auth/login" class="text-ink-200 hover:text-coral-300 transition-colors">Se connecter</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="text-sm">
-        <div class="text-white font-semibold mb-3">Naviguer</div>
-        <ul class="space-y-1.5 text-ink-300/80">
-          <li><a href="/planning" class="hover:text-coral-300 transition-colors">Planning</a></li>
-          <li><a href="/tarifs" class="hover:text-coral-300 transition-colors">Tarifs & abonnements</a></li>
-          <li><a href="/auth/register" class="hover:text-coral-300 transition-colors">Créer un compte</a></li>
-        </ul>
+
+      <div class="border-t border-ink-700/60 mt-12 pt-6 text-xs text-ink-400 flex flex-col sm:flex-row justify-between gap-2">
+        <div>© 2025 Spot Club · Tous droits réservés</div>
+        <div>Reformer Pilates Studio · Paris 14<sup>e</sup></div>
       </div>
-    </div>
-    <div class="relative border-t border-ink-700/60 py-5 text-center text-xs text-ink-300/60">
-      © 2025 Spot Club · Tous droits réservés
     </div>
   </footer>
 
