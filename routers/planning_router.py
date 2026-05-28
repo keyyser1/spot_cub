@@ -32,6 +32,11 @@ async def planning_page(request: Request, semaine: int = 0, db: Session = Depend
         user_bookings = {b.session_id for b in bookings}
 
     jours = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+    mois_fr = [
+        "janvier", "février", "mars", "avril", "mai", "juin",
+        "juillet", "août", "septembre", "octobre", "novembre", "décembre",
+    ]
+    sunday_label = f"{sunday.day} {mois_fr[sunday.month - 1]}"
 
     return templates.TemplateResponse("planning.html", {
         "request": request,
@@ -40,6 +45,7 @@ async def planning_page(request: Request, semaine: int = 0, db: Session = Depend
         "jours": jours,
         "monday": monday,
         "sunday": sunday,
+        "sunday_label": sunday_label,
         "semaine": semaine,
         "user_bookings": user_bookings,
     })
