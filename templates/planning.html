@@ -43,9 +43,15 @@
   <div class="bg-butter-50 border border-butter-200 rounded-2xl px-5 py-4 mb-10 text-sm text-amber-800 flex items-center gap-4">
     <svg class="w-5 h-5 text-amber-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z"/></svg>
     <span>
-      Vous n'avez pas d'abonnement actif.
-      <a href="/tarifs" class="font-semibold link-underline ml-1">Choisir un abonnement →</a>
+      Réservez à l'unité (29 € / cours) ou
+      <a href="/tarifs" class="font-semibold link-underline ml-1">prenez un abonnement →</a>
     </span>
+  </div>
+  {% endif %}
+
+  {% if request.query_params.get('msg') == 'paiement_annule' %}
+  <div class="bg-cream-100 border border-cream-200 rounded-2xl px-5 py-4 mb-10 text-sm text-ink-600 text-center">
+    Paiement annulé. Vous pouvez réessayer quand vous le souhaitez.
   </div>
   {% endif %}
 
@@ -122,10 +128,14 @@
                 <div class="text-[10px] text-ink-300 font-semibold uppercase tracking-super">Complet</div>
               {% endif %}
             {% elif user %}
-              <a href="/tarifs"
-                 class="block text-center py-2 text-[11px] uppercase tracking-super border border-coral-500 text-coral-500 rounded-full hover:bg-coral-500 hover:text-white transition-colors font-semibold">
-                S'abonner
-              </a>
+              {% if not is_full %}
+                <a href="/abonnement/checkout-ponctuel/{{ session.id }}"
+                   class="block text-center py-2 text-[11px] uppercase tracking-super border border-coral-500 text-coral-500 rounded-full hover:bg-coral-500 hover:text-white transition-colors font-semibold">
+                  Réserver 29 €
+                </a>
+              {% else %}
+                <div class="text-[10px] text-ink-300 font-semibold uppercase tracking-super">Complet</div>
+              {% endif %}
             {% else %}
               <a href="/auth/login"
                  class="block text-center py-2 text-[11px] uppercase tracking-super border border-ink-200 text-ink-600 rounded-full hover:bg-ink-900 hover:text-cream-50 hover:border-ink-900 transition-colors font-semibold">
